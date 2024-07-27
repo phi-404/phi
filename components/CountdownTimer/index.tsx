@@ -53,6 +53,7 @@ function CountdownTimer({ deadline, title, lvl }: CountdownTimerProps) {
         <div className={styles.container}>
             <span>~{lvl}~</span>
             <span>~{deadline.getTimezoneOffset()}~</span>
+            <span>~{new Date().getTimezoneOffset()}~</span>
             <h2 className={styles.title}>{title}</h2>
 
             <div className={styles.timeWrapper}>
