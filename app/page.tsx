@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 
 const currYear = new Date().getFullYear()
 const countdownDate = new Date(currYear+1,3,1)
-
+countdownDate.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
 export default function Home() {
   return (
     <main className={styles.main}>
