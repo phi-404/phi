@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import styles from './CountdownTimer.module.css'
+import React, { useEffect, useState } from "react";
+import styles from "./CountdownTimer.module.css";
 
 interface CountdownTimerProps {
     deadline: Date;
@@ -16,20 +16,21 @@ interface CountdownTimeLeft {
     secs?: number;
 }
 
-const INITIAL_TIME_LEFT = { days: 0, hr: 0, mins: 0, secs: 0 }
+const INITIAL_TIME_LEFT = { days: 0, hr: 0, mins: 0, secs: 0 };
 
-function CountdownTimer({ deadline, title ,lvl}: CountdownTimerProps) {
-    const [timeLeft, setTimeLeft] = useState<CountdownTimeLeft>(INITIAL_TIME_LEFT)
+function CountdownTimer({ deadline, title, lvl }: CountdownTimerProps) {
+    const [timeLeft, setTimeLeft] =
+        useState<CountdownTimeLeft>(INITIAL_TIME_LEFT);
 
     useEffect(() => {
-        setTimeLeft(calculateTimeLeft())
+        setTimeLeft(calculateTimeLeft());
 
         const timer = setInterval(() => {
-            setTimeLeft(calculateTimeLeft())
-        }, 1000)
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
 
         return () => clearInterval(timer);
-    }, [])
+    }, []);
 
     function calculateTimeLeft(): CountdownTimeLeft {
         let timeLeft: CountdownTimeLeft = {};
@@ -41,8 +42,8 @@ function CountdownTimer({ deadline, title ,lvl}: CountdownTimerProps) {
                 days: Math.floor(difference / (1000 * 60 * 60 * 24)),
                 hrs: Math.floor((difference / (1000 * 60 * 60)) % 24),
                 mins: Math.floor((difference / 1000 / 60) % 60),
-                secs: Math.floor((difference / 1000) % 60)
-            }
+                secs: Math.floor((difference / 1000) % 60),
+            };
         }
 
         return timeLeft;
@@ -51,31 +52,30 @@ function CountdownTimer({ deadline, title ,lvl}: CountdownTimerProps) {
     return (
         <div className={styles.container}>
             <span>~{lvl}~</span>
-            <h2 className={styles.title}>
-                {title}
-            </h2>
+            <span>~{deadline.getTimezoneOffset()}~</span>
+            <h2 className={styles.title}>{title}</h2>
 
             <div className={styles.timeWrapper}>
-                {
-                    Object.entries(timeLeft).map(([unit, value], index, array) => (
-                        <div key={unit} className={styles.timeContainer}>
-                            <div className={styles.valueContainer}>
-                                {value.toString().split("").map((i:string,id:number,arr:Array<string>)=>(
-                                    <>
-                                        {arr.length==1 && <p className={styles.value}>{0}</p>}
+                {Object.entries(timeLeft).map(([unit, value], index, array) => (
+                    <div key={unit} className={styles.timeContainer}>
+                        <div className={styles.valueContainer}>
+                            {value
+                                .toString()
+                                .split("")
+                                .map((i: string, id: number, arr: Array<string>) => (
+                                    <div key={id} className="flex">
+                                        {arr.length == 1 && <p className={styles.value}>{0}</p>}
                                         <p className={styles.value}>{i}</p>
-                                    </>
+                                    </div>
                                 ))}
-                                {index !== array.length - 1 && <span>:</span>}
-                            </div>
-                            <p className={styles.unit}>{unit}</p>
+                            {index !== array.length - 1 && <span>:</span>}
                         </div>
-                    ))
-                }
-
+                        <p className={styles.unit}>{unit}</p>
+                    </div>
+                ))}
             </div>
         </div>
-    )
+    );
 }
 
-export default CountdownTimer
+export default CountdownTimer;
