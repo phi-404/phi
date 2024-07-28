@@ -2,7 +2,7 @@ import CountdownTimer from "@/components/CountdownTimer";
 import styles from "./page.module.css";
 
 
-const [year,month,day,hours,minutes,seconds,ms] = [2000,6,29,1,9,0,0]
+const [year,month,day,hours,minutes,seconds,ms] = [2000,3,1,0,0,0,0]
 const initialLvl = new Date(year,month,day,hours,minutes,seconds,ms)
 initialLvl.setTime(initialLvl.getTime() - 330 * 60000);
 
