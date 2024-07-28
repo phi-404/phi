@@ -16,7 +16,7 @@ interface CountdownTimeLeft {
     secs?: number;
 }
 
-const INITIAL_TIME_LEFT = { days: 0, hr: 0, mins: 0, secs: 0 };
+const INITIAL_TIME_LEFT = { days: 0, hrs: 0, mins: 0, secs: 0 };
 
 function CountdownTimer({ deadline, title, lvl }: CountdownTimerProps) {
     const [timeLeft, setTimeLeft] =
@@ -37,13 +37,16 @@ function CountdownTimer({ deadline, title, lvl }: CountdownTimerProps) {
         let currentDate = new Date();
         let difference = deadline.getTime() - currentDate.getTime();
 
-        if (difference > 0) {
+        if (difference >= 0) {
             timeLeft = {
                 days: Math.floor(difference / (1000 * 60 * 60 * 24)),
                 hrs: Math.floor((difference / (1000 * 60 * 60)) % 24),
                 mins: Math.floor((difference / 1000 / 60) % 60),
                 secs: Math.floor((difference / 1000) % 60),
             };
+        }
+        else{
+            window.location.reload()
         }
 
         return timeLeft;
